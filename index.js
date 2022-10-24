@@ -75,7 +75,7 @@ console.log(__dirname)
 app.on('ready', function() {
     //creating new window
     mainWindow = new BrowserWindow({
-        width: 1200,
+        width: 1282,
         height: 1080,
         icon:__dirname + '/pages/theme/images/logo.png',
         resizable: false,

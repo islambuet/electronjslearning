@@ -1,4 +1,7 @@
-
+#system_main_container {
+    width: 1200px !important;
+    margin: 2px auto 8px;
+}
 a,
 a:hover,
 a:focus {

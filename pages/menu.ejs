@@ -1,0 +1,42 @@
+<div class="row m-0">
+    <div class="col-lg-5 p-0">
+        <div class="row m-0">
+            <div class="col-lg-2 pl-0">
+                <span class="badge badge-pill badge-light" id="display_date">xx/xx/xxxx</span>
+                <span class="badge badge-pill badge-light" id="display_time">xx:xx:xx</span>
+            </div>
+            <div class="col-lg-5">
+                <nav class="navbar navbar-expand-lg navbar-light p-0 m-0">
+                    <div class="collapse navbar-collapse" id="navbarColor03">
+                        <ul class="nav nav-pills w-100">
+                            <li class="nav-item mr-0 w-100 text-center">
+                                <a class="nav-link bg-light disabled text-dark font-weight-bold" href="#" id="display_machine_name"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <div class="col-lg-3 text-right">
+                        <span class="badge badge-pill badge-light" style="padding:0;" >
+                            <select id="ip_list_dropdown" style="border:0;background-color: #f8f9fa; font-weight: bold;">
+                                <option>Select machine</option>
+                            </select>
+                        </span>
+                <span class="badge badge-pill badge-light" id="show-username"></span>
+            </div>
+            <div class="col-lg-2 text-center" id="status-circle">
+                &#11044;
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function startTime() {
+        let d = new Date();
+        $('#display_date').text(("0"+(d.getMonth()+1)).slice(-2) + "/" + ("0" + d.getDate()).slice(-2) + "/" + d.getFullYear());
+        $('#display_time').text(("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2) + ":" + ("0" + d.getSeconds()).slice(-2));
+    }
+    $(document).ready(function() {
+        setInterval(startTime, 500);
+    })
+</script>
