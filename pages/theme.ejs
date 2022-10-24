@@ -20,6 +20,18 @@
     <script type="text/javascript" src="theme/js/popper.min.js"></script>
     <script type="text/javascript" src="theme/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="theme/js/jquery-qrcode-0.17.0.js"></script>
+    <script type="text/javascript" src="theme/js/system-functions.js"></script>
     <script type="text/javascript" src="theme/js/global.js"></script>
+    <div id="system_main_container">
+
+    </div>
+    <script type="text/javascript">
+        //initiate first ajax
+        $(document).ready(function ()
+        {
+            //console.log(currentPage)
+            systemLoadPage("General",'general.ejs')
+        });
+    </script>
 </body>
 </html>
