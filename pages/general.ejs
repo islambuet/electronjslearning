@@ -1,0 +1,21 @@
+<%- include('header', {currentMenu: 'general-view', pageTitle: 'General View'}); %>
+<h1>Hello World!</h1>
+<!--<div id="qr_code_image" class="text-center"></div>-->
+<%- include('general.svg')%>
+<script>
+    $(document).ready(function ()
+    {
+        $('#qr_code_image').qrcode(
+            {
+                size:200,
+                text: 'shaiflu',
+                render	: "image"
+            }
+        );
+        $('.switch').tooltip()
+
+        console.log("hi")
+    });
+</script>
+
+<%- include('footer', {currentMenu: 'general-view', pageTitle: 'General View'}); %>

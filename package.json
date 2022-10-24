@@ -1,0 +1,21 @@
+{
+  "name": "electron_practice",
+  "version": "1.0.0",
+  "description": "https://www.youtube.com/watch?v=N-3s3ezYd8g&t=31315s\r  # Commands\r     npm init --y",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon -e ejs,js --exec electron .",
+    "mystart": "electron ."
+  },
+  "keywords": [],
+  "author": "Shaiful Islam",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^21.2.0",
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "ejs-electron": "^2.1.1",
+    "jquery": "^3.6.1"
+  }
+}
