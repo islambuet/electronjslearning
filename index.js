@@ -142,6 +142,14 @@ const processReceivedJsonObjects=(jsonObjects)=>{
             if(responseType == "ip_list") {
                 mainWindow.webContents.send("render:ip_list", jsonObj.result);
             }
+            else if(responseType == "general_view") {
+                let generalViewResult = jsonObj.result;
+                mainWindow.webContents.send("render:general_view", generalViewResult);
+            }
+            else if(responseType == "status") {
+                let statusViewResult = jsonObj.result;
+                mainWindow.webContents.send("render:status", statusViewResult);
+            }
         }
     })
 }
