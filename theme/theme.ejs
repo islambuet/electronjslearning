@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Shaiful</title>
+
+    <!--CSS -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="css/icons_feather.min.css">
+    <link rel="stylesheet" type="text/css" href="css/palette-gradient.min.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css" >
+
+</head>
+
+<body>
+    <script>window.$=window.jQuery=require('jquery');</script>
+    <script type="text/javascript" src="js/popper.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/jquery-qrcode-0.17.0.js"></script>
+    <script type="text/javascript" src="js/system-functions.js"></script>
+    <script type="text/javascript" src="js/global.js"></script>
+    <div id="system_main_container">
+        <div class="row">
+            <div class="col-lg-12 text-right" style="height: 60px;">
+                <img src="images/bluecrest-logo.png" height="24" class="mr-1 mt-2 mb-3">
+            </div>
+        </div>
+        hi
+      <%- include('../pages/menu.ejs')%>
+        <div id="system_content">
+
+        </div>
+    </div>
+    <script type="text/javascript">
+        let systemPages={
+            general:{title:'General View',file:'../pages/general.ejs'},
+            alarms:{title:'Alarms',file:'../pages/alarms.ejs'},
+            alarms_history:{title:'Alarms History',file:'../pages/alarms_history.ejs'},
+            alarms_hit_list:{title:'Alarms Hit List',file:'../pages/alarms_hit_list.ejs'},
+            statistics:{title:'Statistics',file:'../pages/statistics.ejs'},
+            status:{title:'Status',file:'../pages/status.ejs'},
+        }
+        let systemCurrentPage='general'
+        $(document).ready(function ()
+        {
+            systemLoadCurrentPage();
+            //console.log(currentPage)
+            //systemLoadPage("General",'general.ejs')
+
+        });
+    </script>
+</body>
+</html>

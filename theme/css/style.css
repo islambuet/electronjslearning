@@ -1,0 +1,8 @@
+#system_main_container {
+    width: 1200px !important;
+    margin: 2px auto 8px;
+}
+#status-circle {
+    line-height: 45px;
+    color: red;
+}

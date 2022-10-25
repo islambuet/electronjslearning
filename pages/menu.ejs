@@ -10,22 +10,52 @@
                     <div class="collapse navbar-collapse" id="navbarColor03">
                         <ul class="nav nav-pills w-100">
                             <li class="nav-item mr-0 w-100 text-center">
-                                <a class="nav-link bg-light disabled text-dark font-weight-bold" href="#" id="display_machine_name"></a>
+                                <label class="nav-link bg-light disabled text-dark font-weight-bold" id="display_machine_name">Select a machine</label>
                             </li>
                         </ul>
                     </div>
                 </nav>
             </div>
             <div class="col-lg-3 text-right">
-                        <span class="badge badge-pill badge-light" style="padding:0;" >
-                            <select id="ip_list_dropdown" style="border:0;background-color: #f8f9fa; font-weight: bold;">
-                                <option>Select machine</option>
-                            </select>
-                        </span>
-                <span class="badge badge-pill badge-light" id="show-username"></span>
+                <span class="badge badge-pill badge-light" style="padding:0;" >
+                    <select id="ip_list_dropdown" style="border:0;background-color: #f8f9fa; font-weight: bold;">
+                        <option>Select machine</option>
+                    </select>
+                </span>
+                <span class="badge badge-pill badge-light" id="show-username">BlueCrest Supervisor</span>
             </div>
             <div class="col-lg-2 text-center" id="status-circle">
                 &#11044;
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-7 p-0">
+        <div class="row m-0">
+            <div class="col-lg-12 p-0">
+                <nav class="navbar navbar-expand-lg navbar-light pr-0 mr-0">
+                    <div class="collapse navbar-collapse" id="navbarColor03">
+                        <ul class="nav nav-pills w-100">
+                            <li class="nav-item">
+                                <a class="nav-link bg-light" href="#" data-page="general">General View</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link bg-light" href="#" data-page="alarms">Alarms</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link bg-light" href="#" data-page="alarms_history">Alarms History</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link bg-light" href="#" data-page="alarms_hit_list">Alarms Hit List</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link bg-light" href="#" data-page="statistics">Statistics</a>
+                            </li>
+                            <li class="nav-item mr-0">
+                                <a class="nav-link bg-light" href="#" data-page="status">Status</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
             </div>
         </div>
     </div>

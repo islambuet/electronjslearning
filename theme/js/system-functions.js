@@ -4,11 +4,11 @@
 systemLoadCurrentPage=()=>{
     if(systemPages[systemCurrentPage]){
         let page=systemPages[systemCurrentPage];
-        systemLoadPage(page.title,page.file)
+        systemLoadPage(systemCurrentPage,page.title,page.file)
     }
 
 }
-systemLoadPage= (title,file)=>{
+systemLoadPage= (name,title,file)=>{
     document.title=title;
-    //$('#system_main_container').load(file);
+    $('#system_content').load(file);
 }

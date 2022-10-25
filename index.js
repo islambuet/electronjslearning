@@ -77,7 +77,9 @@ app.on('ready', function() {
     mainWindow = new BrowserWindow({
         width: 1282,
         height: 1080,
-        icon:__dirname + '/pages/theme/images/logo.png',
+        x:4000,
+        y:20,
+        icon:__dirname + '/theme/images/logo.png',
         resizable: false,
         webPreferences: {
             nodeIntegration: true,
@@ -86,5 +88,5 @@ app.on('ready', function() {
         },
     });
     mainWindow.webContents.openDevTools()
-    mainWindow.loadFile('pages/theme.ejs');
+    mainWindow.loadFile('theme/theme.ejs');
 });
