@@ -19,7 +19,7 @@
             <div class="col-lg-3 text-right">
                 <span class="badge badge-pill badge-light" style="padding:0;" >
                     <select id="ip_list_dropdown" style="border:0;background-color: #f8f9fa; font-weight: bold;">
-                        <option value="">Select machine</option>
+                        <option value="0-Select machine">Select machine</option>
                     </select>
                 </span>
                 <span class="badge badge-pill badge-light" id="show-username">BlueCrest Supervisor</span>
@@ -72,15 +72,27 @@
         systemCurrentPage=pageName;
         systemLoadCurrentPage();
     })
-    ipcRenderer.on("server:connected", function(e) {
+    ipcRenderer.on("server:connected", function(event) {
         $("#status-circle").css("color", "#FFBF00");
         ipcRenderer.send("get:ip_list");
         //request for ip address list
     });
-    ipcRenderer.on("server:disconnected", function(e) {
+    ipcRenderer.on("server:disconnected", function(event) {
         $("#status-circle").css("color", "#FF0000");
         //remove dropdown IpList
     });
+    ipcRenderer.on("render:ip_list", function(event,ipList) {
+        console.log('menu',ipList)
+        let html = '<option value="0-Select machine">Select machine</option>';
+        for (let k in ipList) {
+            html += '<option value="'+ (k+'-'+ipList[k].machine_name) +'">' + ipList[k].ip_address + '</option>';
+        }
+        $("#ip_list_dropdown").html(html);
+        for (let k in ipList) {
+            $("#ip_list_dropdown").val(k+'-'+ipList[k].machine_name).trigger('change');//select first element or match with CM IP
+            break;
+        }
+    })
 
     $(document).ready(function() {
         setInterval(startTime, 500);
@@ -89,6 +101,8 @@
             systemLoadCurrentPage();
         });
         $(document).on("change", "#ip_list_dropdown", function(event){
+            console.log($(this).val())
+            $('#display_machine_name').text($(this).val().substring($(this).val().indexOf('-')+1))
             systemLoadCurrentPage();
         });
 

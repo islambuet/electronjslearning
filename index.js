@@ -136,6 +136,14 @@ client.on('data',(data)=>{
 });
 const processReceivedJsonObjects=(jsonObjects)=>{
     console.log(jsonObjects);
+    jsonObjects.forEach(function(jsonObj) {
+        if(jsonObj.type != undefined) {
+            let responseType = jsonObj.type;
+            if(responseType == "ip_list") {
+                mainWindow.webContents.send("render:ip_list", jsonObj.result);
+            }
+        }
+    })
 }
 const sendMessageToServer=(msg)=> {
     client.write(msg);

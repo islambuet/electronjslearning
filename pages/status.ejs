@@ -28,7 +28,8 @@
     $(document).ready(function ()
     {
         $('[data-toggle="tooltip"]').tooltip();
-        ipcRenderer.send("get:views", $('#ip_list_dropdown').val(), "status");
+        let machineId=$('#ip_list_dropdown').val().substring(0,$('#ip_list_dropdown').val().indexOf('-'));
+        ipcRenderer.send("get:views", machineId, "status");
         //ipcRenderer.send("get:views", 1, "status");
         console.log(systemCurrentPage)
         //systemLoadPage("General",'general.ejs')

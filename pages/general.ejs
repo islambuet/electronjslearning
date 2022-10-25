@@ -43,7 +43,9 @@
     $(document).ready(function ()
     {
         $('[data-toggle="tooltip"]').tooltip();
-        ipcRenderer.send("get:views", $('#ip_list_dropdown').val(), "general_view");
+        let machineId=$('#ip_list_dropdown').val().substring(0,$('#ip_list_dropdown').val().indexOf('-'));
+        ipcRenderer.send("get:views",machineId, "general_view");
+        console.log(machineId)
         //ipcRenderer.send("get:views", 1, "general_view");
         console.log(systemCurrentPage)
         //systemLoadPage("General",'general.ejs')
