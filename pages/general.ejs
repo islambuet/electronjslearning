@@ -43,6 +43,8 @@
     $(document).ready(function ()
     {
         $('[data-toggle="tooltip"]').tooltip();
+        ipcRenderer.send("get:views", $('#ip_list_dropdown').val(), "general_view");
+        //ipcRenderer.send("get:views", 1, "general_view");
         console.log(systemCurrentPage)
         //systemLoadPage("General",'general.ejs')
 

@@ -28,6 +28,8 @@
     $(document).ready(function ()
     {
         $('[data-toggle="tooltip"]').tooltip();
+        ipcRenderer.send("get:views", $('#ip_list_dropdown').val(), "status");
+        //ipcRenderer.send("get:views", 1, "status");
         console.log(systemCurrentPage)
         //systemLoadPage("General",'general.ejs')
 

@@ -86,6 +86,9 @@ const makeConnection=()=>{
         if((port != "not_set") && (host != "not_set")) {
             client.connect(port, host);
         }
+        else{
+            console.log('Need to setup')
+        }
     }
 }
 client.on('connect', ()=>{
@@ -109,10 +112,36 @@ client.on('close', (error)=>{
     retryCount++;
     setTimeout(makeConnection, retryCount*reConnectTimeFactor);
 });
-ipcMain.on("server:request-connect", function(e) {
-    makeConnection();
+let chunk = "";
+const DELIMITER = (';#;#;');
+client.on('data',(data)=>{
+    let jsonData;
+    let jsonObjects;
+    chunk += data.toString(); // Add string on the end of the variable 'chunk'
+    let d_index = chunk.indexOf(DELIMITER); // Find the delimiter
+
+    // While loop to keep going until no delimiter can be found
+    while (d_index > -1) {
+        try {
+            jsonData = chunk.substring(0,d_index); // Create string up until the delimiter
+            jsonObjects = JSON.parse('[' + jsonData.replace(/\}\s*\{/g, '},{') + ']')
+            processReceivedJsonObjects(jsonObjects); // Function that does something with the current chunk of valid json.
+        }catch(er) {
+            console.log("Error happened in main again");
+            console.log(jsonData);
+        }
+        chunk = chunk.substring(d_index+DELIMITER.length); // Cuts off the processed chunk
+        d_index = chunk.indexOf(DELIMITER); // Find the new delimiter
+    }
 });
+const processReceivedJsonObjects=(jsonObjects)=>{
+    console.log(jsonObjects);
+}
+const sendMessageToServer=(msg)=> {
+    client.write(msg);
+}
 //Client Section End
+//Request from GUI
 ipcMain.handle("getSettings", function(event) {
     let ingram_server_address = store.get('ingram_server_address', 'not_set');
     let ingram_server_port = store.get('ingram_server_port', 'not_set');
@@ -137,8 +166,22 @@ ipcMain.on("save:settings", function(event, settings_data) {
     } else {
         store.set('ingram_detailed_active_alarm', 'not_set');
     }
+    makeConnection();
 });
-
+ipcMain.on('get:ip_list',(event)=>{
+    let m = {"req" : "send_ip_list"};
+    sendMessageToServer(JSON.stringify(m));
+})
+ipcMain.on("get:views", (e, machineId, view_name)=> {
+    if((machineId >0)) {
+        let m = {"req" : view_name, "id" : machineId};
+        sendMessageToServer(JSON.stringify(m));
+    }
+    else{
+        console.log("Invalid Machine")
+    }
+});
+///Request From GUI End
 app.on('ready', function() {
     //creating new window
     mainWindow = new BrowserWindow({
@@ -156,7 +199,7 @@ app.on('ready', function() {
     });
     mainWindow.webContents.openDevTools()
     mainWindow.loadFile('theme/theme.ejs').then(()=>{
-        //makeConnection();
+        makeConnection();
         console.log("Theme Loaded")
     })
 });
