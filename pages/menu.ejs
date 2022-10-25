@@ -29,25 +29,25 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-7 p-0">
+    <div class="col-lg-7 p-0" id="system-menus">
         <div class="row m-0">
             <div class="col-lg-12 p-0">
                 <nav class="navbar navbar-expand-lg navbar-light pr-0 mr-0">
                     <div class="collapse navbar-collapse" id="navbarColor03">
                         <ul class="nav nav-pills w-100">
-                            <li class="nav-item">
+                            <li class="nav-item mr-2">
                                 <a class="nav-link bg-light" href="#" data-page="general">General View</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item mr-2">
                                 <a class="nav-link bg-light" href="#" data-page="alarms">Alarms</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item mr-2">
                                 <a class="nav-link bg-light" href="#" data-page="alarms_history">Alarms History</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item mr-2">
                                 <a class="nav-link bg-light" href="#" data-page="alarms_hit_list">Alarms Hit List</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item mr-2">
                                 <a class="nav-link bg-light" href="#" data-page="statistics">Statistics</a>
                             </li>
                             <li class="nav-item mr-0">
@@ -68,5 +68,10 @@
     }
     $(document).ready(function() {
         setInterval(startTime, 500);
+        $("#system-menus .nav .nav-link").click(function() {
+            systemCurrentPage=$(this).data('page');
+            systemLoadCurrentPage();
+
+        });
     })
 </script>

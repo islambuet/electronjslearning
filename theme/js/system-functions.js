@@ -10,5 +10,8 @@ systemLoadCurrentPage=()=>{
 }
 systemLoadPage= (name,title,file)=>{
     document.title=title;
-    $('#system_content').load(file);
+    $('#system-content').load(file);
+    $('#system-menus .nav .nav-link').removeClass('active').addClass('bg-light');
+    $('#system-menus .nav .nav-link[data-page="'+name+'"]').addClass('active').removeClass('bg-light');
+    //$('#system-menus .nav .nav-link[data-page="'+name+'"]').removeClass('bg-light');
 }
