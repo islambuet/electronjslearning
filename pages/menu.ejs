@@ -67,6 +67,12 @@
         $('#display_date').text(("0"+(d.getMonth()+1)).slice(-2) + "/" + ("0" + d.getDate()).slice(-2) + "/" + d.getFullYear());
         $('#display_time').text(("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2) + ":" + ("0" + d.getSeconds()).slice(-2));
     }
+    const electron = require('electron');
+    const {ipcRenderer} = electron;
+    ipcRenderer.on("load-page", function(event,pageName) {
+        systemCurrentPage=pageName;
+        systemLoadCurrentPage();
+    })
     $(document).ready(function() {
         setInterval(startTime, 500);
         $(document).on("click", "#system-menus .nav .nav-link", function(event){

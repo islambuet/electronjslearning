@@ -1,6 +1,9 @@
 const electron = require('electron');
 const {app, BrowserWindow, Menu, ipcMain} = electron;
 const ejse = require('ejs-electron');
+const net = require("net");
+const Store = require('electron-store');
+const store = new Store();
 
 let mainWindow;
 //Menu section
@@ -44,14 +47,7 @@ const menuTemplate = [
             {
                 label: 'Settings',
                 click() {
-                    console.log('Settings')
-                    //if(logged_in_user_role === 1) {
-                    // let linkFile = "settings-page.ejs";
-                    // mainWindow.loadFile(linkFile, {query: {"role": logged_in_user_role}});
-                    // } else {
-                    // 	let linkFile = "login.ejs";
-                    // 	mainWindow.loadFile(linkFile);
-                    // }
+                    mainWindow.webContents.send("load-page", 'settings');
                 }
             },
         ]
@@ -70,14 +66,85 @@ Menu.setApplicationMenu(menu)
 // menu = Menu.buildFromTemplate(menuTemplate);
 // Menu.setApplicationMenu(menu);
 
-//menu section
-console.log(__dirname)
+const getStoredValue=(key_name)=>{
+    return store.get(key_name, "not_set");
+}
+
+//Menu section End
+
+//Client section
+let client = new net.Socket();
+let alreadyConnected = 0;
+const reConnectTimeFactor = 1000;
+let retryCount=0;
+
+const makeConnection=()=>{
+    console.log("Connecting: ",retryCount)
+    if(alreadyConnected == 0) {
+        let port = getStoredValue("ingram_server_port");
+        let host = getStoredValue("ingram_server_address");
+        if((port != "not_set") && (host != "not_set")) {
+            client.connect(port, host);
+        }
+    }
+}
+client.on('connect', ()=>{
+    alreadyConnected = 1;
+    retryCount=0;
+    mainWindow.webContents.send("server:connected");
+    console.log('Server Connected');
+});
+client.on('error', (error)=>{
+    console.log('error');
+    console.log(error);
+});
+client.on('close', (error)=>{
+    //This function is called even connection failed.
+    console.log('Close called');
+    if(alreadyConnected){
+        console.log('Disconnected from connection.');
+        mainWindow.webContents.send("server:disconnected");
+    }
+    alreadyConnected=0;
+    retryCount++;
+    setTimeout(makeConnection, retryCount*reConnectTimeFactor);
+});
+ipcMain.on("server:request-connect", function(e) {
+    makeConnection();
+});
+//Client Section End
+ipcMain.handle("getSettings", function(event) {
+    let ingram_server_address = store.get('ingram_server_address', 'not_set');
+    let ingram_server_port = store.get('ingram_server_port', 'not_set');
+    let ingram_cm_address = store.get('ingram_cm_address', 'not_set');
+    let ingram_diagnostic_url = store.get('ingram_diagnostic_url', 'not_set');
+    let ingram_detailed_active_alarm = store.get('ingram_detailed_active_alarm', 'not_set');
+    return{
+        server_address:ingram_server_address,
+        server_port:ingram_server_port,
+        cm_address:ingram_cm_address,
+        diagnostic_url:ingram_diagnostic_url,
+        detailed_active_alarm:ingram_detailed_active_alarm
+    }
+});
+ipcMain.on("save:settings", function(event, settings_data) {
+    store.set('ingram_server_address', settings_data['server_address']);
+    store.set('ingram_server_port', settings_data['server_port']);
+    store.set('ingram_cm_address', settings_data['cm_address']);
+    store.set('ingram_diagnostic_url', settings_data['diagnostic_url']);
+    if (typeof settings_data['detailed_active_alarm'] !== 'undefined') {
+        store.set('ingram_detailed_active_alarm', settings_data['detailed_active_alarm']);
+    } else {
+        store.set('ingram_detailed_active_alarm', 'not_set');
+    }
+});
+
 app.on('ready', function() {
     //creating new window
     mainWindow = new BrowserWindow({
         width: 1282,
         height: 1080,
-        x:4000,
+        x:2000,
         y:20,
         icon:__dirname + '/theme/images/logo.png',
         resizable: false,
@@ -88,5 +155,9 @@ app.on('ready', function() {
         },
     });
     mainWindow.webContents.openDevTools()
-    mainWindow.loadFile('theme/theme.ejs');
+    mainWindow.loadFile('theme/theme.ejs').then(()=>{
+        //makeConnection();
+        console.log("Theme Loaded")
+    })
 });
+
