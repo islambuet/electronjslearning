@@ -1,10 +1,50 @@
-<h1>Hello World!</h1>
-<!--<div id="qr_code_image" class="text-center"></div>-->
-<%- include('general.svg')%>
+<div class="row m-0 mt-1">
+    <div class="col-lg-2 pl-0" style="padding-top: 305px;">
+        <button class="btn btn-outline-success induct-control-btn mt-2" id="induct-1-btn" data-induct-gui-id="1">Disable Priorty Pak-5</button>
+        <button class="btn btn-outline-success induct-control-btn mt-2" id="induct-2-btn" data-induct-gui-id="2">Disable Priorty Pak-4</button>
+        <button class="btn btn-outline-success induct-control-btn mt-2" id="induct-3-btn" data-induct-gui-id="3">Disable Priorty Pak-3</button>
+        <button class="btn btn-outline-success induct-control-btn mt-2" id="induct-4-btn" data-induct-gui-id="4">Disable Priorty Pak-2</button>
+        <button class="btn btn-outline-success induct-control-btn mt-2" id="induct-5-btn" data-induct-gui-id="5">Disable Priorty Pak-1</button>
+        <button class="btn btn-outline-success induct-control-btn mt-2" id="induct-6-btn" data-induct-gui-id="6">Disable Tfold-2</button>
+        <button class="btn btn-outline-success induct-control-btn mt-2" id="induct-7-btn" data-induct-gui-id="7">Disable Tfold-1</button>
+    </div>
+    <div class="col-lg-8" style="padding: 0 50px; text-align: center;">
+        <%- include('general.svg')%>
+    </div>
+    <div class="col-lg-2"></div>
+</div>
+<div class="row m-0">
+    <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2 mt-2">
+        <table class="table table-sm table-bordered" id="details_active_alarms_table">
+            <thead>
+            <tr>
+                <th style="width: 20%;">Timestamp</th>
+                <th style="width: 10%;">Duration</th>
+                <th style="width: 10%;">Class</th>
+                <th style="width: 10%;">Location</th>
+                <th style="width: 20%;">Description</th>
+                <th style="width: 20%;">Variable Name</th>
+            </tr>
+            </thead>
+            <tbody id="active_alarm_tbody">
+            <tr>
+                <td colspan="6">No active alarm to display</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="row" id="marquee1">
+            <div class="col-lg-12">
+                <ul id="alarm-ticker"></ul>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     $(document).ready(function ()
     {
-        console.log("general loaded")
+        $('[data-toggle="tooltip"]').tooltip();
+        console.log(systemCurrentPage)
+        //systemLoadPage("General",'general.ejs')
+
     });
 </script>
-

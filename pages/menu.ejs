@@ -19,7 +19,8 @@
             <div class="col-lg-3 text-right">
                 <span class="badge badge-pill badge-light" style="padding:0;" >
                     <select id="ip_list_dropdown" style="border:0;background-color: #f8f9fa; font-weight: bold;">
-                        <option>Select machine</option>
+                        <option value="">Select machine</option>
+                        <option value="1">Machine-1</option>
                     </select>
                 </span>
                 <span class="badge badge-pill badge-light" id="show-username">BlueCrest Supervisor</span>
@@ -68,10 +69,13 @@
     }
     $(document).ready(function() {
         setInterval(startTime, 500);
-        $("#system-menus .nav .nav-link").click(function() {
+        $(document).on("click", "#system-menus .nav .nav-link", function(event){
             systemCurrentPage=$(this).data('page');
             systemLoadCurrentPage();
-
         });
+        $(document).on("change", "#ip_list_dropdown", function(event){
+            systemLoadCurrentPage();
+        });
+
     })
 </script>
