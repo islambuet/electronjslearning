@@ -66,33 +66,7 @@
         $('#display_date').text(("0"+(d.getMonth()+1)).slice(-2) + "/" + ("0" + d.getDate()).slice(-2) + "/" + d.getFullYear());
         $('#display_time').text(("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2) + ":" + ("0" + d.getSeconds()).slice(-2));
     }
-    const electron = require('electron');
-    const {ipcRenderer} = electron;
-    ipcRenderer.on("load-page", function(event,pageName) {
-        systemCurrentPage=pageName;
-        systemLoadCurrentPage();
-    })
-    ipcRenderer.on("server:connected", function(event) {
-        $("#status-circle").css("color", "#FFBF00");
-        ipcRenderer.send("get:ip_list");
-        //request for ip address list
-    });
-    ipcRenderer.on("server:disconnected", function(event) {
-        $("#status-circle").css("color", "#FF0000");
-        //remove dropdown IpList
-    });
-    ipcRenderer.on("render:ip_list", function(event,ipList) {
-        console.log('menu',ipList)
-        let html = '<option value="0-Select machine">Select machine</option>';
-        for (let k in ipList) {
-            html += '<option value="'+ (k+'-'+ipList[k].machine_name) +'">' + ipList[k].ip_address + '</option>';
-        }
-        $("#ip_list_dropdown").html(html);
-        for (let k in ipList) {
-            $("#ip_list_dropdown").val(k+'-'+ipList[k].machine_name).trigger('change');//select first element or match with CM IP
-            break;
-        }
-    })
+
 
     $(document).ready(function() {
         setInterval(startTime, 500);

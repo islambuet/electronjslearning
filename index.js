@@ -150,6 +150,11 @@ const processReceivedJsonObjects=(jsonObjects)=>{
                 let statusViewResult = jsonObj.result;
                 mainWindow.webContents.send("render:status", statusViewResult);
             }
+            else if(responseType == "device_status") {
+                let deviceStatusResult = jsonObj.result;
+                //console.log(deviceStatusResult);
+                mainWindow.webContents.send("render:device_status", deviceStatusResult);
+            }
         }
     })
 }
